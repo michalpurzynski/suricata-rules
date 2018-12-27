@@ -1,0 +1,36 @@
+# HTTP
+alert http any any -> any 443 (msg:"SURICATA HTTP clear text on port 443"; flow:to_server; app-layer-protocol:http; threshold: type limit, track by_src, seconds 3600, count 1; sid:2271019; rev:1;)
+alert tcp any any -> any !80 (msg:"SURICATA HTTP on unusual port"; flow:to_server; app-layer-protocol:http; threshold: type limit, track by_src, seconds 60, count 1; sid:2271001; rev:1;)
+alert tcp any any -> any 80 (msg:"SURICATA non-HTTP on TCP port 80"; flow:to_server; app-layer-protocol:!http; threshold: type limit, track by_src, seconds 60, count 1; sid:2271002; rev:1;)
+
+# SSL
+alert tcp any any -> any ![443,465,587] (msg:"SURICATA TLS on unusual port"; flow:to_server; app-layer-protocol:tls; threshold: type limit, track by_src, seconds 60, count 1; sid:2271004; rev:1;)
+alert tcp any any -> any [443,465] (msg:"SURICATA non-TLS on TLS port"; flow:to_server; app-layer-protocol:!tls; threshold: type limit, track by_src, seconds 60, count 1; sid:2271003; rev:1;)
+
+# FTP
+alert tcp any any -> any ![20,21,6667] (msg:"SURICATA FTP on unusual TCP port"; flow:to_server; app-layer-protocol:ftp; threshold: type limit, track by_src, seconds 60, count 1; sid:2271005; rev:1;)
+alert tcp any any -> any [20,21] (msg:"SURICATA non-FTP on TCP port 21"; flow:to_server; app-layer-protocol:!ftp; threshold: type limit, track by_src, seconds 60, count 1; sid:2271006; rev:1;)
+
+# SSH
+alert tcp any any -> any !22 (msg:"SURICATA SSH on unusual port"; flow:to_server; app-layer-protocol:ssh; threshold: type limit, track by_src, seconds 60, count 1; sid:2271009; rev:1;)
+alert tcp any any -> any 22 (msg:"SURICATA non-SSH on TCP port 22"; flow:to_server; app-layer-protocol:!ssh; threshold: type limit, track by_src, seconds 60, count 1; sid:2271010; rev:1;)
+
+alert tcp any any -> any !143 (msg:"SURICATA IMAP on unusual port"; flow:to_server; app-layer-protocol:imap; threshold: type limit, track by_src, seconds 60, count 1; sid:2271011; rev:1;)
+alert tcp any any -> any 143 (msg:"SURICATA non-IMAP on TCP port 143"; flow:to_server; app-layer-protocol:!imap; threshold: type limit, track by_src, seconds 60, count 1; sid:2271012; rev:1;)
+
+# SMB
+alert tcp any any -> any 139 (msg:"SURICATA non-SMB on TCP port 139"; flow:to_server; app-layer-protocol:!smb; threshold: type limit, track by_src, seconds 60, count 1; sid:2271013; rev:1;)
+alert tcp any any -> any [80,8080] (msg:"SURICATA DCERPC detected over port tcp 80,8080"; flow:to_server; app-layer-protocol:dcerpc; threshold: type limit, track by_src, seconds 60, count 1; sid:2271014; rev:1;)
+
+# DNS
+alert tcp any any -> any !53 (msg:"SURICATA DNS-TCP on unusual port"; flow:to_server; app-layer-protocol:dns; threshold: type limit, track by_src, seconds 60, count 1; sid:2271015; rev:1;)
+
+alert tcp any any -> any 53 (msg:"SURICATA non-DNS-TCP on TCP port 53"; flow:to_server; app-layer-protocol:!dns; threshold: type limit, track by_src, seconds 60, count 1; sid:2271016; rev:1;)
+
+alert udp any any -> any !53 (msg:"SURICATA DNS-UDP on unusual port"; flow:to_server; app-layer-protocol:dns; threshold: type limit, track by_src, seconds 60, count 1; sid:2271017; rev:1;)
+
+alert udp any any -> any 53 (msg:"SURICATA non-DNS-UDP on UDP port 53"; flow:to_server; app-layer-protocol:!dns; threshold: type limit, track by_src, seconds 60, count 1; sid:2271018; rev:1;)
+
+# MODBUS
+alert tcp any any -> any 502 (msg:"SURICATA TCP port 502 but not MODBUS"; flow:to_server; app-layer-protocol:!modbus; threshold: type limit, track by_src, seconds 60, count 1; sid:2271019; rev:1;)
+alert tcp any any -> any any (msg:"SURICATA TCP port 502 MODBUS"; flow:to_server; app-layer-protocol:modbus; threshold: type limit, track by_src, seconds 60, count 1; sid:2271020; rev:1;)

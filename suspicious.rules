@@ -1,0 +1,12 @@
+alert udp any any -> any 53 (msg:"SURICATA DNS Query to a Suspicious *.ws Domain"; content:"|01 00 00 01 00 00 00 00 00 00|"; depth:10; offset:2; content:"|02|ws|00|"; nocase; sid:2500003; rev:1;)
+alert http any any -> any any (msg:"SURICATA HTTP Request to a Suspicious *.ws Domain"; flow:established,to_server; content:".ws"; http_host; isdataat:!1,relative; sid:2500004; rev:1;)
+alert udp any any -> any 53 (msg:"SURICATA DNS Query to a Suspicious *.to Domain"; content:"|01 00 00 01 00 00 00 00 00 00|"; depth:10; offset:2; content:"|02|to|00|"; nocase; sid:2500005; rev:1;)
+alert http any any -> any any (msg:"SURICATA HTTP Request to a Suspicious *.to Domain"; flow:established,to_server; content:".to"; http_host; isdataat:!1,relative; sid:2500006; rev:1;)
+alert http any any -> any any (msg:"SURICATA HTTP Request to a Suspicious *.onion.to Domain"; flow:established,to_server; content:".onion.to"; http_host; isdataat:!1,relative; sid:2500007; rev:1;)
+alert http any any -> any any (msg:"SURICATA HTTP Request to a Suspicious *.onion.city Domain"; flow:established,to_server; content:".onion.city"; http_host; isdataat:!1,relative; sid:2500008; rev:1;)
+alert http any any -> any any (msg:"SURICATA HTTP Request to a Suspicious *.onion.cab Domain"; flow:established,to_server; content:".onion.cab"; http_host; isdataat:!1,relative; sid:2500009; rev:1;)
+alert http any any -> any any (msg:"SURICATA HTTP Request to a Suspicious *.onion.direct Domain"; flow:established,to_server; content:".onion.direct"; http_host; isdataat:!1,relative; sid:2500010; rev:1;)
+alert http any any -> any any (msg:"SURICATA HTTP Request to a Suspicious *.onion.* Domain"; flow:established,to_server; content:".onion."; http_host; isdataat:!1,relative; sid:2500011; rev:1;)
+alert udp any any -> any 53 (msg:"SURICATA DNS Query to a Suspicious *.onion Domain"; content:"|01 00 00 01 00 00 00 00 00 00|"; depth:10; offset:2; content:"|02|onion|00|"; nocase; sid:2500012; rev:1;)
+alert tls any any -> any any (msg:"SURICATA SSL session to suspicious *onion.to"; tls.subject:"CN=*.onion.to, OU=Domain Control Validated"; sid:2500013; rev:1;)
+

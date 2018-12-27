@@ -1,0 +1,10 @@
+alert http any any -> any any (msg:"SURICATA FILE plaintext PEM certificate request"; filemagic:"PEM certificate request"; sid:2500016; rev:1;)
+alert http any any -> any any (msg:"SURICATA FILE plaintext PEM RSA private key"; filemagic:"PEM RSA private key"; sid:2500017; rev:1;)
+alert http any any -> any any (msg:"SURICATA FILE plaintext PEM DSA private key"; filemagic:"PEM DSA private key"; sid:2500018; rev:1;)
+alert http any any -> any any (msg:"SURICATA FILE plaintext PEM EC private key"; filemagic:"PEM EC private key"; sid:2500019; rev:1;)
+alert http any any -> any any (msg:"SURICATA FILE plaintext OpenSSH DSA public key"; filemagic:"OpenSSH DSA public key"; sid:2500020; rev:1;)
+alert http any any -> any any (msg:"SURICATA FILE plaintext OpenSSH RSA public key"; filemagic:"OpenSSH RSA public key"; sid:2500021; rev:1;)
+alert http any any -> any any (msg:"SURICATA FILE plaintext OpenSSH ECDSA public key"; filemagic:"OpenSSH ECDSA public key"; sid:2500022; rev:1;)
+alert http any any -> any any (msg:"SURICATA FILE plaintext OpenSSH RSA1 private key"; filemagic:"OpenSSH RSA1 private key"; sid:2500023; rev:1;)
+alert http any any -> any any (msg:"SURICATA NetSession in http_user_agent"; content:"NetSession"; http_user_agent; sid:2500024; rev:1;)
+

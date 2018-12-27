@@ -1,0 +1,1 @@
+alert dns any any -> any any (msg:"Teleconsole DNS query"; dns_query; content:"teleconsole"; nocase; sid:9000032; rev:1;)
