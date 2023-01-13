@@ -32,5 +32,5 @@ alert udp any any -> any !53 (msg:"SURICATA DNS-UDP on unusual port"; flow:to_se
 alert udp any any -> any 53 (msg:"SURICATA non-DNS-UDP on UDP port 53"; flow:to_server; app-layer-protocol:!dns; threshold: type limit, track by_src, seconds 60, count 1; sid:2271018; rev:1;)
 
 # MODBUS
-alert tcp any any -> any 502 (msg:"SURICATA TCP port 502 but not MODBUS"; flow:to_server; app-layer-protocol:!modbus; threshold: type limit, track by_src, seconds 60, count 1; sid:2271019; rev:1;)
+alert tcp any any -> any 502 (msg:"SURICATA TCP port 502 but not MODBUS"; flow:to_server; app-layer-protocol:!modbus; threshold: type limit, track by_src, seconds 60, count 1; sid:2271029; rev:1;)
 alert tcp any any -> any any (msg:"SURICATA TCP port 502 MODBUS"; flow:to_server; app-layer-protocol:modbus; threshold: type limit, track by_src, seconds 60, count 1; sid:2271020; rev:1;)
